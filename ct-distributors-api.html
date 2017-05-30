@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../ct-core-utils/ct-api-provider-behaviour.html">
 <!--
 `ct-distributors-api`
 API for distributor management
@@ -9,12 +10,10 @@ API for distributor management
 
 <dom-module id="ct-distributors-api">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
+    <iron-ajax id="getDistributorDetails"></iron-ajax>
+    <iron-ajax id="addDistributor"></iron-ajax>
+    <iron-ajax id="addDistributor"></iron-ajax>
+    <iron-ajax id="deleteDistributor"></iron-ajax>
   </template>
 
   <script>
@@ -22,13 +21,85 @@ API for distributor management
 
       is: 'ct-distributors-api',
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'ct-distributors-api',
-        },
-      },
+      behaviors: [CT.Behaviours.ApiProvider],
 
+      /**
+       * Get all available distributors
+       *
+       * @param {String} [pageNum=0]
+       * @param {String} [pageSize=20]
+       *
+       * @returns {Promise}
+       */
+      getDistributorDetails : function(pageNum, pageSize){
+        var pageNum = pageNum || 0,
+              pageSize = pageSize || 20,
+              params = '';
+              params += '?page_number='+pageNum;
+              params += '&page_size='+pageSize;
+
+              this.$.getDistributorDetails.url = this._url('/distributors'+params);
+              return this._generateRequest(this.$.getDistributorDetails);
+      },
+      /**
+       * Create a new distributor
+       *
+       * @param {Object[]} params
+       * @param {String} params[].name
+       * @param {String} params[].contactNumber
+       * @param {String} params[].address
+       *
+       * @returns {Promise}
+       */
+
+       addDistributor: function(params) {
+         this.$.addDistributor.url=this._url('/distributors');
+         this.$.addDistributor.method = 'POST';
+         this.$.addDistributor.contentType = "application/json";
+         this.$addDistributor.body = params;
+
+         return this._generateRequest(this.$.addDistributor);
+       },
+
+
+       /**
+        * Update a distributor
+        *
+        * @param {Object[]} params
+        * @param {String} params[].name
+        * @param {String} params[].contactNumber
+        * @param {String} params[].address
+        *
+        * @returns {Promise}
+        */
+
+        updateDistributor: function(id, params) {
+          this.$.updateDistributor.url=this._url('/distributors');
+          this.$.updateDistributor.method = 'PUT';
+          this.$.updateDistributor.contentType = "application/json";
+          this.$.updateDistributor.body = params;
+
+          return this._generateRequest(this.$.updateDistributor);
+        },
+
+        /**
+         * Delete a distributor
+         *
+         * @param {Object[]} params
+         * @param {String} params[].name
+         * @param {String} params[].contactNumber
+         * @param {String} params[].address
+         *
+         * @returns {Promise}
+         */
+
+         deleteDistributor: function(id) {
+           this.$.deleteDistributor.url = this._url('distributors/+id');
+           this.$.deleteDistributor.method = 'DELETE';
+           this.$.deleteDistributor.contentType ="application/json";
+
+           return this._generateRequest(this.$.deleteDistributor);
+         }
     });
   </script>
 </dom-module>
