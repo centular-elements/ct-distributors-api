@@ -31,7 +31,7 @@ API for distributor management
        *
        * @returns {Promise}
        */
-      getDistributorDetails : function(pageNum, pageSize){
+      getDistributorDetails: function(pageNum, pageSize){
         var pageNum = pageNum || 0,
               pageSize = pageSize || 20,
               params = '';
@@ -56,7 +56,8 @@ API for distributor management
          this.$.addDistributor.url=this._url('/distributor');
          this.$.addDistributor.method = 'POST';
          this.$.addDistributor.contentType = "application/json";
-         this.$addDistributor.body = params;
+         this.$.addDistributor.body = params;
+
 
          return this._generateRequest(this.$.addDistributor);
        },
