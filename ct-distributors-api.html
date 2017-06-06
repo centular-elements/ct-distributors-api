@@ -95,7 +95,7 @@ API for distributor management
          */
 
          deleteDistributor: function(id) {
-           this.$.deleteDistributor.url = this._url('/distributor/+id');
+           this.$.deleteDistributor.url = this._url('/distributor/'+id);
            this.$.deleteDistributor.method = 'DELETE';
            this.$.deleteDistributor.contentType ="application/json";
 
