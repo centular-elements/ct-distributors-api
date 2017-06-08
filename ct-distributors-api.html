@@ -12,7 +12,7 @@ API for distributor management
   <template>
     <iron-ajax id="getDistributorDetails"></iron-ajax>
     <iron-ajax id="addDistributor"></iron-ajax>
-    <iron-ajax id="addDistributor"></iron-ajax>
+    <iron-ajax id="updateDistributor"></iron-ajax>
     <iron-ajax id="deleteDistributor"></iron-ajax>
   </template>
 
@@ -74,8 +74,8 @@ API for distributor management
         * @returns {Promise}
         */
 
-        updateDistributor: function(id, params) {
-          this.$.updateDistributor.url=this._url('/distributor');
+        updateDistributor: function(params) {
+          this.$.updateDistributor.url=this._url('/distributor/'+params.id);
           this.$.updateDistributor.method = 'PUT';
           this.$.updateDistributor.contentType = "application/json";
           this.$.updateDistributor.body = params;
