@@ -38,7 +38,7 @@ API for distributor management
               params += '?page_number='+pageNum;
               params += '&page_size='+pageSize;
 
-              this.$.getDistributorDetails.url = this._url('/distributor'+params);
+              this.$.getDistributorDetails.url = this._url('/distributors'+params);
               return this._generateRequest(this.$.getDistributorDetails);
       },
       /**
@@ -53,7 +53,7 @@ API for distributor management
        */
 
        addDistributor: function(params) {
-         this.$.addDistributor.url=this._url('/distributor');
+         this.$.addDistributor.url=this._url('/distributors');
          this.$.addDistributor.method = 'POST';
          this.$.addDistributor.contentType = "application/json";
          this.$.addDistributor.body = params;
@@ -75,7 +75,7 @@ API for distributor management
         */
 
         updateDistributor: function(params) {
-          this.$.updateDistributor.url=this._url('/distributor/'+params.id);
+          this.$.updateDistributor.url=this._url('/distributors/'+params.id);
           this.$.updateDistributor.method = 'PUT';
           this.$.updateDistributor.contentType = "application/json";
           this.$.updateDistributor.body = params;
@@ -95,7 +95,7 @@ API for distributor management
          */
 
          deleteDistributor: function(id) {
-           this.$.deleteDistributor.url = this._url('/distributor/'+id);
+           this.$.deleteDistributor.url = this._url('/distributors/'+id);
            this.$.deleteDistributor.method = 'DELETE';
            this.$.deleteDistributor.contentType ="application/json";
 
