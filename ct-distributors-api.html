@@ -74,14 +74,14 @@ API for distributor management
         * @returns {Promise}
         */
 
-        updateDistributor: function(params) {
-          this.$.updateDistributor.url=this._url('/distributors/'+params.id);
-          this.$.updateDistributor.method = 'PUT';
-          this.$.updateDistributor.contentType = "application/json";
-          this.$.updateDistributor.body = params;
+        updateDistributor: function(distributor, id) {
+         this.$.updateDistributor.url=this._url('/distributors/'+id);
+         this.$.updateDistributor.method = 'PUT';
+         this.$.updateDistributor.contentType = "application/json";
+         this.$.updateDistributor.body = distributor;
+         return this._generateRequest(this.$.updateDistributor);
+       },
 
-          return this._generateRequest(this.$.updateDistributor);
-        },
 
         /**
          * Delete a distributor
